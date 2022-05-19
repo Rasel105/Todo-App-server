@@ -19,12 +19,14 @@ async function run() {
         const todoCollection = client.db("todo_app").collection("todolist");
 
 
+        // POST API 
         app.post("/todolist", async (req, res) => {
             const todolist = req.body;
             const result = await todoCollection.insertOne(todolist);
             res.send(result);
         });
 
+        // GET API 
         app.get('/todolist', async (req, res) => {
             const query = req.query;
             const cursor = todoCollection.find(query);
@@ -32,6 +34,7 @@ async function run() {
             res.send(result);
         });
 
+        // GET API 
         app.delete('/todolist/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -45,7 +48,7 @@ async function run() {
 
     }
 }
-run().catch(console.dir)
+run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send('Hello From todoapp')
